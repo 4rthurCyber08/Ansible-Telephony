@@ -28,6 +28,7 @@ conf t
  !
  crypto key generate rsa modulus 2048 label devops
  ip ssh version 2
+ ip ssh rsa keypair-name devops
  !
  line vty 0 14
   transport input telnet ssh
@@ -53,6 +54,7 @@ conf t
  !
  crypto key generate rsa modulus 2048 label devops
  ip ssh version 2
+ ip ssh rsa keypair-name devops
  !
  line vty 0 14
   transport input telnet ssh
