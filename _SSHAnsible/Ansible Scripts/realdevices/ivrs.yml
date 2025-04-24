@@ -26,6 +26,7 @@
       - name: "Specifying Music on Hold"
         ios_command:
           commands: 
+            - config t
             - telephony-service
             - 'moh "flash:/en_bacd_music_on_hold.au"'
             - end
