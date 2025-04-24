@@ -36,7 +36,7 @@
           - max-dn 12
           - max-pool 12
           - authenticate register
-          - create profile sync
+          - create profile
       tags:
         - sipdomain
       
