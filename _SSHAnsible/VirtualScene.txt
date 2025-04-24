@@ -1,0 +1,81 @@
+
+Create VirtualScene
+
+1. Create 2 CSR1000v Routers.
+	- Open CSR1000V-16.ova
+	- Setup
+	
+		CSR 1
+			VMname: PNB-BGC
+			Deployment: Small
+			Properties:
+				Router Name: PNB-BGC
+				Username: admin-BGC
+				Password: C1sc0123$
+		
+		CSR 2
+			VMname: PNB-Alabang
+			Deployment: Small
+			Properties:
+				Router Name: PNB-Alabang
+				Username: admin-Alabang
+				Password: C1sc0123$$
+				
+	- VM Settings
+		Memory: 8GB
+		NetAdapter 1: NAT
+		NetAdapter 2: VMNet 2
+		NetAdapter 3: VMNet 3
+
+
+2. Paste VirtualScene Configs.txt on Routers.
+
+
+3. Execute Ansible:
+
+Virtual (CSR1000v)
+
+1. Get a key from a host.
+
+	ssh admin-bgc@192.168.102.121
+		- Password: C1sc0123
+	
+		Are you sure... yes
+
+2. Run the yaml file as an ansible playbook.
+	
+	ansible-playbook pnb-bgc.yml
+	
+	
+Real (Catalyst3650)
+
+1. Configure SSH
+
+Requirements:
+	- Non-default hostname
+	- domain name
+	- user account
+	- create rsa keys (minimun size: 2048)
+	- execute "ip ssh version 2" command
+
+	Use the "show ip ssh" to verify keyxchange options.
+
+@corebaba
+conf t
+ hostname corebaba
+ ip domain name ccna.com
+ username admin privilege 15 secret pass
+ crypto key generate rsa modulus 2048
+ ip ssh version 2
+ !
+ line vty 0 14
+  transport input telnet ssh
+  login local
+  exec-timeout 2 30
+  end
+
+2. Create yaml file for playbook
+
+3. Get keys via SSH for the control node
+
+4. Execute playbook.

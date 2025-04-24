@@ -1,0 +1,61 @@
+
+Monitor Number: #$3AT#
+
+
+1. Set minimal preconfigs to CoreSwitch (corebaba) and H.323 Gateway (cucm)
+	Refer to Preconfig-Telephony-Services.txt
+
+2. Configure SSH for Corebaba and CUCM
+
+Requirements:
+	- Non-default hostname
+	- domain name
+	- user account
+	- create rsa keys (minimun size: 2048)
+	- execute "ip ssh version 2" command
+
+	Use the "show ip ssh" to verify keyxchange options.
+
+@corebaba
+conf t
+ hostname corebaba-auto-#$3AT#
+ !
+ ip domain name devops.xyz
+ !
+ username admin privilege 15 secret C1sc0123
+ username _____ privilege 15 secret C1sc0123
+ username aerin privilege 1 secret C1sc0123
+ !
+ crypto key generate rsa modulus 2048 label devops
+ ip ssh version 2
+ !
+ line vty 0 14
+  transport input telnet ssh
+  login local
+  exec-timeout 2 30
+  end
+
+Verify SSH:
+
+show ip ssh
+show crypto key mypubkey rsa
+
+
+@cucm
+conf t
+ hostname cucm-auto-#$3AT#
+ !
+ ip domain name devops.xyz
+ !
+ username admin privilege 15 secret C1sc0123
+ username _____ privilege 15 secret C1sc0123
+ username aerin privilege 1 secret C1sc0123
+ !
+ crypto key generate rsa modulus 2048 label devops
+ ip ssh version 2
+ !
+ line vty 0 14
+  transport input telnet ssh
+  login local
+  exec-timeout 2 30
+  end

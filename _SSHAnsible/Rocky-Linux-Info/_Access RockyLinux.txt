@@ -1,0 +1,34 @@
+Prepare RockyLinux
+
+!!Make sure NetAdapter is NAT, and NAT must have a network of 208.8.8.0 255.255.255.0
+!!Make sure VMNet2 must have a network of 192.168.102.0 255.255.255.0
+!!Make sure VMNet3 must have a network of 192.168.103.0 255.255.255.0
+
+xtra: 
+	JumpServer, admin C1sc0123
+	Semaphore, rivan C1sc0123
+
+login:	root
+pass:	C1sc0123
+
+1. Enter "ip -4 addr"
+	Check "ens160" and get the ip address (ex. 208.8.8.150/24)
+
+2. SSHv2 to the VM
+	Open SecureCRT, then connect to the VM via SSHv2 protocol
+		- hostname: the ip of the vm (ens160: 208.8.8.150)
+		- port: 22 (The default port for SSH)
+		- Username: root
+			'Accept and Save'
+			
+		- Password: C1sc0123
+
+3. Navigate the terminal.
+	Enter the following commands:
+		cd /etc/ansible
+		ls
+		
+		
+	Command info:
+		cd = change directory
+		ls = list contents of the directory

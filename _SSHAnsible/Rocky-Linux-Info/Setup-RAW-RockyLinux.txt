@@ -1,0 +1,21 @@
+Source Download Link: https://dl.rockylinux.org/vault/rocky/9.4/isos/x86_64/
+
+Install Instructions: https://support.kaspersky.com/ktae/2.3/298070
+
+OS?
+	Rocky Linux is OS RedHat 9
+
+
+#####TERMINAL COMMANDS#####
+
+## Update Packages
+yum update -y
+yum install epel-release -y
+
+
+## Install Ansible
+yum install ansible -y
+
+
+
+

@@ -1,0 +1,31 @@
+---
+
+# Monitor Number  = #$3AT#
+
+- name: "Day 1 Config: Edge"
+  hosts: cbaba
+  gather_facts: no
+  become: yes
+  tasks:
+    - name: "Configuring Console Access"
+      ios_command:
+        commands:
+          - conf t
+          - hostname coreBaba-#$3AT#
+          - enable secret pass
+          - service password-encryption
+          - no logging console
+          - no ip domain-lookup
+          - line cons 0
+          - password pass
+          - login
+          - exec-timeout 0 0
+          - exit
+          - line vty 0 14
+          - password pass
+          - login local
+          - exec-timeout 0 0
+          - end
+      tags:
+        - accesscli
+        
