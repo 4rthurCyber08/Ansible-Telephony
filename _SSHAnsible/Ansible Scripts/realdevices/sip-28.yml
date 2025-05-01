@@ -1,6 +1,6 @@
 ---
 
-# Monitor Number  = #$3AT#
+# Monitor Number  = 28
 # Mobile Phone 1 Mac: #M0B1LEMAC1#
 # Mobile Phone 2 Mac: #M0B1LEMAC2#
 
@@ -33,7 +33,7 @@
           - config t
           - voice register global
           - mode cme
-          - "source-address 10.#$3AT#.100.8 port 5060"
+          - "source-address 10.28.100.8 port 5060"
           - max-dn 12
           - max-pool 12
           - authenticate register
@@ -48,13 +48,13 @@
         commands: 
           - config t
           - voice register dn 1
-          - "number #$3AT#34"
+          - "number 2834"
           - allow watch
-          - "name #$3AT#34"
+          - "name 2834"
           - voice register dn 2
-          - "number #$3AT#43"
+          - "number 2843"
           - allow watch
-          - "name #$3AT#43"
+          - "name 2843"
           - end
       tags:
         - sipdn
@@ -67,13 +67,13 @@
           - "id mac #M0B1LEMAC1#"
           - number 1 dn 1
           - dtmf-relay sip-notify
-          - "username #$3AT#34 password #$3AT#34"
+          - "username 2823 password 2823"
           - codec g711ulaw
           - voice register pool 2
           - "id mac #M0B1LEMAC2#"
           - number 1 dn 2
           - dtmf-relay sip-notify
-          - "username #$3AT#43 password #$3AT#43"
+          - "username 2832 password 2832"
           - codec g711ulaw
           - end
       tags:
