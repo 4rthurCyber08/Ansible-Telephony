@@ -1,0 +1,11 @@
+@CUCM - MGMT VLAN
+config t
+ Int Vlan 1
+  no shutdown
+  ip add 10.28.1.1 255.255.255.0
+  description DEFAULT
+ interface FastEthernet0/1/7 
+  switchport mode access
+  switchport access vlan 1
+ end
+
