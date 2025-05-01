@@ -47,6 +47,28 @@
       tags:
         - vlans
 
+
+    - name: "Creating VLANs"
+      ios_command:
+        commands:
+        - configure terminal
+        - interface FastEthernet0/1/1 
+        - switchport mode access
+        - switchport voice vlan 100
+        - interface FastEthernet0/1/3 
+        - switchport mode access
+        - switchport access vlan 50
+        - interface FastEthernet0/1/5 
+        - switchport mode access
+        - switchport access vlan 10
+        - interface FastEthernet0/1/7 
+        - switchport mode access
+        - switchport access vlan 1
+        - end
+      tags:
+        - sw
+
+
     - name: "Switch Virtual Interface"
       ios_command:
         commands:
