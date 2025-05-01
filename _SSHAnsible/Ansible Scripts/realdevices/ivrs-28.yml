@@ -14,7 +14,7 @@
             - dial-peer voice 69 voip
             - service rivanaa out-bound
             - "destination-pattern 2869"
-            - "session target ipv4:10.28.100.8"
+            - "session target ipv4:10.28.100.1"
             - "incoming called-number 2869"
             - dtmf-relay h245-alphanumeric
             - codec g711ulaw
@@ -56,8 +56,8 @@
             - "service rivanqueue flash:app-b-acd-3.0.0.2.tcl"
             - param queue-len 15
             - "param aa-hunt1 2800"
-            - "param aa-hunt2 2801"
-            - "param aa-hunt3 2877"
+            - "param aa-hunt2 2877"
+            - "param aa-hunt3 2801"
             - "param aa-hunt4 2833"
             - param queue-manager-debugs 1
             - param number-of-hunt-grps 4
