@@ -3,7 +3,7 @@
 
 ///PASTE
 
-Include /etc/ssh/ssh_config.d/*.conf
+Include /etc/ssh/ssh_config.d/*.conf    <- Should exist by default
 HostKeyAlgorithms +ssh-rsa
 PubkeyAcceptedKeyTypes +ssh-rsa
 
@@ -14,7 +14,7 @@ PubkeyAcceptedKeyTypes +ssh-rsa
 
 ///PASTE
 
-Include /etc/ssh/sshd_config.d/*.conf
+Include /etc/ssh/sshd_config.d/*.conf   <- Should exist by default
 HostKeyAlgorithms +ssh-rsa
 PubkeyAcceptedKeyTypes +ssh-rsa
 
