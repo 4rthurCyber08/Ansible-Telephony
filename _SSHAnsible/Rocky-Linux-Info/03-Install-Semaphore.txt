@@ -1,6 +1,7 @@
 We will need to install the following:
- - MariaDB (For SQL)
- - Git (For Github Access)
+ - MariaDB (Step 2)
+ - Git (Step 3)
+ - Semaphore (Step 4)
 
 1. Update System
  : sudo dnf -y
@@ -34,3 +35,66 @@ We will need to install the following:
    ]> GRANT ALL PRIVILEGES ON semaphore.* TO 'semaphore'@'localhost' IDENTIFIED BY 'C1sc0123';
    ]> exit;
 
+3. Install Git
+ : sudo dnf -y install git
+ : git --version
+
+4. Install Semaphore
+ : sudo dnf -y install wget
+ : wget https://github.com/ansible-semaphore/semaphore/releases/download/v2.13.10/semaphore_2.13.10_linux_amd64.rpm
+ : sudo dnf -y install semaphore_2.13.10_linux_amd64.rpm
+
+ - Create Semaphore User and Run Setup Process
+ : sudo useradd -m -d /opt/semaphore semaphore
+ : sudo su - semaphore
+ : sudo passwd semaphore
+ : semaphore setup
+
+  a. DB SQL Press ENTER
+  b. DB hostname: Press ENTER
+  c. DB type: 1 (MySQL)
+  d. DB user: semaphore
+  e. DB password: C1sc0123
+  f. DB name: semaphore
+  g. Playbook path: /opt/semaphore
+  h. Accept other defaults.
+   > Username: admin
+   > Email: rivan@gmail.com
+       WARN[0175] no rows in result set fields.level=Warn
+   > Your name: Rivan
+   > Password: C1sc0123
+
+ - Create Semaphore Systemd Service
+ : su root
+ : sudo nano /etc/systemd/system/semaphore.service
+
+//PASTE
+
+[Unit]
+Description=Semaphore Ansible
+Documentation=https://github.com/ansible-semaphore/semaphore
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User=semaphore
+Group=semaphore
+ExecReload=/bin/kill -HUP $MAINPID
+ExecStart=/usr/bin/semaphore service --config=/etc/semaphore/config.json
+SyslogIdentifier=semaphore
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+
+//
+
+ - Configure Semaphore Directory and Start Service
+ : sudo mkdir /etc/semaphore
+ : sudo ln -s /opt/semaphore/config.json /etc/semaphore/config.json
+ : sudo chown -R semaphore:semaphore /etc/semaphore
+ : sudo systemctl daemon-reload
+ : sudo systemctl enable --now semaphore
+ : sudo systemctl status semaphore
+ : sudo ss -tunelp | grep 3000
