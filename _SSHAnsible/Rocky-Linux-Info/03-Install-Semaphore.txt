@@ -1,0 +1,36 @@
+We will need to install the following:
+ - MariaDB (For SQL)
+ - Git (For Github Access)
+
+1. Update System
+ : sudo dnf -y
+
+2. Install and Configure MariaDB
+ : curl -LsS -O https://downloads.mariadb.com/MariaDB/mariadb_repo_setup
+ : sudo bash mariadb_repo_setup
+
+ - Install MariaDB Server, Client, and Backup Tools
+ : sudo dnf -y install MariaDB-server MariaDB-client MariaDB-backup
+
+ - Start and Enable MariaDB
+ : sudo systemctl enable --now mariadb
+ : sudo systemctl status mariadb
+
+ - Secure the MariaDB Installation
+ : sudo mariadb-secure-installation
+
+  a. Press Enter for no root password.
+  b. Unix socket authentication: n
+  c. Change root password: y → Set to your preferred password (e.g. C1sc0123 )
+  d. Remove anonymous users: y
+  e. Disallow root remote login: y
+  f. Remove test database: y
+  g. Reload privileges: y
+
+ - Create Database and User for Semaphore
+  : mysql -u root -p
+  *MariaDB Shell
+   ]> CREATE DATABASE semaphore;
+   ]> GRANT ALL PRIVILEGES ON semaphore.* TO 'semaphore'@'localhost' IDENTIFIED BY 'C1sc0123';
+   ]> exit;
+
