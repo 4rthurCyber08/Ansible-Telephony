@@ -2,6 +2,7 @@ We will need to install the following:
  - MariaDB (Step 2)
  - Git (Step 3)
  - Semaphore (Step 4)
+ - NGINX with SSL (Step 5)
 
 1. Update System
  : sudo dnf -y
@@ -68,7 +69,7 @@ We will need to install the following:
  : su root
  : sudo nano /etc/systemd/system/semaphore.service
 
-//PASTE
+///PASTE
 
 [Unit]
 Description=Semaphore Ansible
@@ -98,3 +99,56 @@ WantedBy=multi-user.target
  : sudo systemctl enable --now semaphore
  : sudo systemctl status semaphore
  : sudo ss -tunelp | grep 3000
+
+5. Install and Configure NGINX with SSL
+ : sudo nano /etc/yum.repos.d/nginx.repo
+
+///PASTE
+
+[nginx]
+name=Nginx Repo
+baseurl=https://nginx.org/packages/rhel/$releasever/$basearch/
+gpgcheck=0
+enabled=1
+
+//
+
+ - Install and Start NGINX
+ : sudo dnf -y install nginx
+ : sudo systemctl enable --now nginx
+ : sudo systemctl status nginx
+
+ - Generate SSL Certificate
+ : sudo mkdir /etc/nginx/ssl
+ : cd /etc/nginx/ssl
+ : sudo nano ssl-info.txt
+
+///PASTE
+
+[req]
+default_bits = 2048
+prompt = no
+default_keyfile = localhost.key
+distinguished_name = dn
+req_extensions = req_ext
+x509_extensions = v3_ca
+
+[dn]
+C = PH
+ST = NCR
+L = Manila
+O = localhost
+OU = Development
+CN = localhost
+
+[req_ext]
+subjectAltName = @alt_names
+
+[v3_ca]
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1 = localhost
+DNS.2 = 127.0.0.1
+
+//
